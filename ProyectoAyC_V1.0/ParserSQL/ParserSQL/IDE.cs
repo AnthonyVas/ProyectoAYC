@@ -458,8 +458,37 @@ namespace ParserSQL
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
+            //FileStream inFile = new FileStream(@" " + txt_direccion.Text  + " ", FileMode.Open, FileAccess.Read);
+            //StreamReader reader = new StreamReader(inFile);
+
+            ////Console.Write("Keyword: ");
+            //var keyword = "select";
+            //using (var sr = new StreamReader(""))
+            //{
+            //    while (!sr.EndOfStream)
+            //    {
+            //        var line = sr.ReadLine();
+            //        if (String.IsNullOrEmpty(line)) continue;
+            //        if (line.IndexOf(keyword, StringComparison.CurrentCultureIgnoreCase) >= 0)
+            //        {
+            //            MessageBox.Show("Resultado.");
+            //        }
+            //    }
+            //}
+            string result = string.Empty;
+            var lines = File.ReadAllLines(@" " + txt_direccion.Text + " ");
+            foreach (var line in lines)
+            {
+                if (line.Contains("select"))
+                {
+                    selectView a = new selectView(line);
+                    a.Show();
+                }
+            }
+           
+
             ProcessStartInfo cmd;
-            cmd = new ProcessStartInfo("sqlcmd", "-S LAPTOP-LISBETH -i" + txt_direccion.Text);
+            cmd = new ProcessStartInfo("sqlcmd", "-S DESKTOP-R3BTB98 -i" + txt_direccion.Text);
             cmd.UseShellExecute = false;
             cmd.CreateNoWindow = true;
             cmd.RedirectStandardOutput = true;
